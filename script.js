@@ -158,7 +158,12 @@ function takeCommand(message) {
     } else if (msg.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`The current time is ${time}.`);
-    } else {
+    } else if(msg.includes("play")){
+        let text = msg.replace("spark", "").trim();
+        speak(`This is what I found on the youtube regarding ${text}.`);
+        window.open(`https://www.youtube.com/results?search_query=${text}`, "_blank");
+    }
+    else {
         let text = msg.replace("spark", "").trim();
         speak(`This is what I found on the internet regarding ${text}.`);
         window.open(`https://www.google.com/search?q=${text}`, "_blank");
