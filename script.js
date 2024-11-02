@@ -5,26 +5,50 @@ let voice = document.querySelector("#voice");
 let userName = "User"; // Default name
 let tagline = "Ignite your ideas with spark!"; // Tagline
 
+let maleVoice; // Variable to hold the male voice
+
+function populateVoiceList() {
+    let voices = window.speechSynthesis.getVoices();
+    voices.forEach((voice) => {
+        if (voice.name.toLowerCase().includes("male")) {
+            maleVoice = voice; // Store the male voice
+        }
+    });
+}
+
+// Call this function to log voices after the voices are loaded
+window.speechSynthesis.onvoiceschanged = populateVoiceList;
+
 function speak(text) {
-    console.log("Speaking:", text);  // Debugging line
+    console.log("Speaking:", text);
     let text_speak = new SpeechSynthesisUtterance(text);
-    text_speak.rate = 1.2;
+    text_speak.rate = 0.7;
     text_speak.pitch = 1;
     text_speak.volume = 1;
-    text_speak.lang = "hi-IN"; // Change this to "en-US" if needed
+    text_speak.lang = "en-US"; // Change as needed
+
+    // Use the stored male voice if available
+    if (maleVoice) {
+        text_speak.voice = maleVoice;
+    }
+
+    text_speak.onerror = (event) => {
+        console.error('Speech synthesis error:', event.error);
+    };
+
     window.speechSynthesis.speak(text_speak);
 }
 
 function wishMe() {
     let day = new Date();
     let hours = day.getHours();
-    speak('First of all, Jay Shree Raam');
+    speak('First of all, Nashkar Dostoo!');
     if (hours >= 0 && hours < 12) {
-        speak(`and Good Morning ${userName}. ${tagline}`);
+        speak(`Good Morning ${userName}. ${tagline}`);
     } else if (hours >= 12 && hours < 16) {
-        speak(`and Good Afternoon ${userName}. ${tagline}`);
+        speak(`Good Afternoon ${userName}. ${tagline}`);
     } else {
-        speak(`and Good Evening ${userName}. ${tagline}`);
+        speak(`Good Evening ${userName}. ${tagline}`);
     }
 }
 
@@ -40,7 +64,7 @@ recognition.onresult = (event) => {
     let transcript = event.results[currentIndex][0].transcript;
 
     console.log(event);
-    content.innerText = "You : " + transcript;
+    content.innerText = "You: " + transcript;
     takeCommand(transcript);
 };
 
@@ -124,20 +148,14 @@ function takeCommand(message) {
         ];
         let joke = jokes[Math.floor(Math.random() * jokes.length)];
         speak(joke);
-    } 
-    
-    else if (msg.includes("okay") || msg.includes("nice") || msg.includes("good")) {
+    } else if (msg.includes("okay") || msg.includes("nice") || msg.includes("good")) {
         speak("Glad to hear that! How can I assist you further?");
     } else if (msg.includes("bye") || msg.includes("quit") || msg.includes("exit")) {
         speak("Goodbye! Have a great day!");
         recognition.stop(); // Stop recognition if quitting
-        // Optionally, you can hide the button or redirect the user
         content.innerText = "Good Bye!";
         voice.style.display = "none";
-    }
-    
-    
-    else if (msg.includes("time")) {
+    } else if (msg.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`The current time is ${time}.`);
     } else {
