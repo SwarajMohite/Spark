@@ -8,10 +8,10 @@ let tagline = "Ignite your ideas with spark!"; // Tagline
 function speak(text) {
     console.log("Speaking:", text);  // Debugging line
     let text_speak = new SpeechSynthesisUtterance(text);
-    text_speak.rate = 0.7;
+    text_speak.rate = 1.2;
     text_speak.pitch = 1;
     text_speak.volume = 1;
-    text_speak.lang = "mr-IN"; // Change this to "en-US" if needed
+    text_speak.lang = "hi-IN"; // Change this to "en-US" if needed
     window.speechSynthesis.speak(text_speak);
 }
 
