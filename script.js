@@ -87,9 +87,9 @@ function takeCommand(message) {
     if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey")) {
         speak(`Hello ${userName}, how can I help you?`);
     } else if (msg.includes("who are you") || msg.includes("tell me about yourself")) {
-        speak("I am a virtual assistant named Spark, created by Swaraj Sir.");
+        speak("I am a virtual assistant named Spark, created by Swaraj Mohite.");
     } else if (msg.includes("who is swaraj")) {
-        speak("Swaraj Sir, a second-year student from G P Pune. He is a tech enthusiast as he created me.");
+        speak("Swaraj, a second-year student from G P Pune. He is a tech enthusiast as he created me.");
     } else if (msg.includes("what can you do") || msg.includes("what are your abilities") || msg.includes("capabilities")) {
         speak("I can answer your basic questions and perform simple tasks as a virtual assistant.");
     } else if (msg.includes("what is your name") || msg.includes("your name")) {
