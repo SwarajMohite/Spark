@@ -90,9 +90,9 @@ function takeCommand(message) {
         speak("I am a virtual assistant named Spark, created by Swaraj Sir.");
     } else if (msg.includes("who is swaraj")) {
         speak("Swaraj Sir, a second-year student from G P Pune. He is a tech enthusiast as he created me.");
-    } else if (msg.includes("what can you do?")) {
-        speak("I can answer your basic questions and do all the simple things that an average virtual assistant can do!");
-    } else if (msg.includes("what is your name")) {
+    } else if (msg.includes("what can you do") || msg.includes("what are your abilities") || msg.includes("capabilities")) {
+        speak("I can answer your basic questions and perform simple tasks as a virtual assistant.");
+    } else if (msg.includes("what is your name") || msg.includes("your name")) {
         speak("My name is Spark. What is your name?");
         recognition.start(); // Start recognition to capture user name
     } else if (msg.includes("my name is")) {
@@ -133,24 +133,36 @@ function takeCommand(message) {
     } else if (msg.includes("open calculator")) {
         speak("Opening Calculator...");
         window.open("calculator://");
-    } else if (msg.includes("open word")) {
+    } else if (msg.includes("open word") || msg.includes("open microsoft word")) {
         speak("Opening Microsoft Word...");
         window.open("word://");
     } else if (msg.includes("open")) {
         let text = msg.replace("open", "").trim();
         speak("Opening...");
         window.open(`${text}://`);
-    } else if (msg.includes("tell me a joke")) {
+    } else if (msg.includes("tell me a joke") || msg.includes("make me laugh")) {
         let jokes = [
-            "Why did the scarecrow win an award? Because he was outstanding in his field!",
-            "I told my computer I needed a break, and now it won’t stop sending me to the beach!",
-            "Why don’t scientists trust atoms? Because they make up everything!"
+            "Why did the chicken cross the road? To get to the other side!",
+            "What do you call a bear with no teeth? A gummy bear!",
+            "Why don’t scientists trust atoms? Because they make up everything!",
+            "Why did the bicycle fall over? Because it was two-tired!",
+            "What do you call fake spaghetti? An impasta!",
+            "Why can't you give Elsa a balloon? Because she will let it go!",
+            "How does a penguin build its house? Igloos it together!",
+            "Why did the golfer bring two pairs of pants? In case he got a hole in one!",
+            "What do you call cheese that isn't yours? Nacho cheese!",
+            "Why did the math book look sad? Because it had too many problems!",
+            "What did one wall say to the other wall? I'll meet you at the corner!",
+            "Why was the broom late? It swept in!",
+            "Why don't skeletons fight each other? They don't have the guts!",
+            "What did the zero say to the eight? Nice belt!",
+            "Why was the computer cold? It left its Windows open!"
         ];
         let joke = jokes[Math.floor(Math.random() * jokes.length)];
         speak(joke);
-    } else if (msg.includes("okay") || msg.includes("nice") || msg.includes("good")) {
+    } else if (msg.includes("okay") || msg.includes("nice") || msg.includes("good") || msg.includes("great")) {
         speak("Glad to hear that! How can I assist you further?");
-    } else if (msg.includes("bye") || msg.includes("quit") || msg.includes("exit")) {
+    } else if (msg.includes("bye") || msg.includes("quit") || msg.includes("exit") || msg.includes("see you")) {
         speak("Goodbye! Have a great day!");
         recognition.stop(); // Stop recognition if quitting
         content.innerText = "Good Bye!";
@@ -158,12 +170,16 @@ function takeCommand(message) {
     } else if (msg.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`The current time is ${time}.`);
-    } else if(msg.includes("play")){
-        let text = msg.replace("spark", "").trim();
-        speak(`This is what I found on the youtube regarding ${text}.`);
+    } else if (msg.includes("play")) {
+        let text = msg.replace("play", "").trim();
+        speak(`This is what I found on YouTube regarding ${text}.`);
         window.open(`https://www.youtube.com/results?search_query=${text}`, "_blank");
-    }
-    else {
+    } else if (msg.includes("help") || msg.includes("commands")) {
+        speak("Here are some commands you can use: " +
+              "Say 'hello', 'who are you', 'what can you do', 'open youtube', 'tell me a joke', " +
+              "'time', or 'play' followed by a topic. " +
+              "You can also say 'bye' to exit.");
+    } else {
         let text = msg.replace("spark", "").trim();
         speak(`This is what I found on the internet regarding ${text}.`);
         window.open(`https://www.google.com/search?q=${text}`, "_blank");
