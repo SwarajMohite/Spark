@@ -42,7 +42,7 @@ function speak(text) {
 function wishMe() {
     let day = new Date();
     let hours = day.getHours();
-    speak('First of all, Nashkar Dostoo!');
+    speak('Greetings ! and');
     if (hours >= 0 && hours < 12) {
         speak(`Good Morning ${userName}. ${tagline}`);
     } else if (hours >= 12 && hours < 16) {
